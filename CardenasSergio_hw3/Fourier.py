@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.fftpack import fftfreq
+from scipy.fftpack import fftfreq, ifft
 
 def dft(signal):
 	N = len(signal)
@@ -27,8 +27,35 @@ plt.title('Signal')
 plt.xlabel('t')
 plt.ylabel('y(t)')
 plt.savefig('CardenasSergio_signal.pdf')
+plt.close()
 
 dt = signalx[1] - signalx[0]
+freqs = fftfreq(len(signaly), dt)
+transform = dft(signaly)
+#print 1/(dt*len(signaly))
 plt.figure()
-plt.plot(fftfreq(len(signaly), dt), abs(dft(signaly)))
+plt.plot(freqs, abs(transform))
+plt.title('Transformada de Fourier de Signal')
+plt.xlim(-2000, 2000)
+plt.xlabel('f')
+plt.ylabel('|Y(jw)|')
 plt.savefig('CardenasSergio_TF.pdf')
+plt.close()
+
+#140, 210, 385 Hz
+print 'Las frecuencias principales son:'
+for i in freqs[abs(transform)>300]:
+	if i>0:
+		print i, 'Hz'
+
+#filtro
+fc = 1000
+transform[abs(freqs)>fc] = 0
+signal_filtered = ifft(transform)
+plt.figure()
+plt.plot(signalx, signal_filtered)
+plt.title('Signal filtrada')
+plt.xlabel('t')
+plt.ylabel('y_filtered(t)')
+plt.savefig('CardenasSergio_filtrada.pdf')
+plt.close()
