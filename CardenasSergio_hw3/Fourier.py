@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fftfreq, ifft
+import scipy.interpolate as interp
 
 def dft(signal):
 	N = len(signal)
@@ -59,3 +60,18 @@ plt.xlabel('t')
 plt.ylabel('y_filtered(t)')
 plt.savefig('CardenasSergio_filtrada.pdf')
 plt.close()
+
+#Transformada de datos incompletos
+print 'Al observar los datos del archivo incompletos.dat, se nota que cada muestra no esta separada por el mismo intervalo de tiempo. Para que la Transformada de Fourier Discreta funcione, es necesario que los datos esten equidistantes en tiempo.'
+
+#interpolacion
+fcuadratic = interp.interp1d(incompletex, incompletey,kind = "quadratic")
+fcubic = interp.interp1d(incompletex, incompletey,kind = "cubic")
+
+x = np.linspace(incompletex[0], incompletex[-1], 512)
+ycuadratic = fcuadratic(x)
+ycubic = fcubic(x)
+
+dtfcuadratic = dtf(ycuadratic)
+dtfcubic = dtf(ycubic)
+dt2 = x[1]-x[0]
