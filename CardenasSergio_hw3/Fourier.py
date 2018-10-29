@@ -37,9 +37,8 @@ transform = dft(signaly)
 plt.figure()
 plt.plot(freqs, abs(transform))
 plt.title('Transformada de Fourier de Signal')
-plt.xlim(-2000, 2000)
 plt.xlabel('f')
-plt.ylabel('|Y(jw)|')
+plt.ylabel('|Y(f)|')
 plt.savefig('CardenasSergio_TF.pdf')
 plt.close()
 
@@ -51,8 +50,8 @@ for i in freqs[abs(transform)>300]:
 
 #filtro
 fc = 1000
-transform[abs(freqs)>fc] = 0
-signal_filtered = ifft(transform)
+dft_filtered = transform*(abs(freqs)<=fc)
+signal_filtered = ifft(dft_filtered)
 plt.figure()
 plt.plot(signalx, signal_filtered)
 plt.title('Signal filtrada')
@@ -68,10 +67,33 @@ print 'Al observar los datos del archivo incompletos.dat, se nota que cada muest
 fcuadratic = interp.interp1d(incompletex, incompletey,kind = "quadratic")
 fcubic = interp.interp1d(incompletex, incompletey,kind = "cubic")
 
-x = np.linspace(incompletex[0], incompletex[-1], 512)
-ycuadratic = fcuadratic(x)
-ycubic = fcubic(x)
+interpx = np.linspace(incompletex[0], incompletex[-1], 512)
+ycuadratic = fcuadratic(interpx)
+ycubic = fcubic(interpx)
 
-dtfcuadratic = dtf(ycuadratic)
-dtfcubic = dtf(ycubic)
-dt2 = x[1]-x[0]
+dftcuadratic = dft(ycuadratic)
+dftcubic = dft(ycubic)
+dt2 = interpx[1]-interpx[0]
+interpfreq = fftfreq(len(interpx), dt2)
+
+#graficas de dft
+plt.figure()
+plt.subplot('311')
+plt.plot(freqs, abs(transform))
+plt.title('Transformada signal original')
+plt.xlabel('f')
+plt.ylabel('|Y(f)|')
+plt.subplot('312')
+plt.plot(interpfreq, abs(dftcuadratic))
+plt.title('Transformada interpolacion cuadratica')
+plt.xlabel('f')
+plt.ylabel('|Y(f)|')
+plt.subplot('313')
+plt.plot(interpfreq, abs(dftcubic))
+plt.title('Transformada interpolacion cubica')
+plt.xlabel('f')
+plt.ylabel('|Y(f)|')
+plt.savefig('CardenasSergio_TF_interpola.pdf')
+plt.close()
+
+#Diferencias
