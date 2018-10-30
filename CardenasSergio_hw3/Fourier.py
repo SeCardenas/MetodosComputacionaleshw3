@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fftfreq, ifft
 import scipy.interpolate as interp
 
+#implementacion dft
 def dft(signal):
 	N = len(signal)
 	dft = np.zeros(N,dtype=complex)
@@ -14,6 +15,7 @@ def dft(signal):
 		dft[k] = ak
 	return dft
 
+#cargar datos
 signal_data = np.loadtxt('signal.dat', delimiter=',')
 incomplete_data = np.loadtxt('incompletos.dat', delimiter=',')
 
@@ -22,6 +24,7 @@ signaly = signal_data[:,1]
 incompletex = incomplete_data[:,0]
 incompletey = incomplete_data[:,1]
 
+#graficar signal
 plt.figure()
 plt.plot(signalx, signaly)
 plt.title('Signal')
@@ -30,6 +33,7 @@ plt.ylabel('y(t)')
 plt.savefig('CardenasSergio_signal.pdf')
 plt.close()
 
+#graficar la transformada de signal
 dt = signalx[1] - signalx[0]
 freqs = fftfreq(len(signaly), dt)
 transform = dft(signaly)
