@@ -97,3 +97,31 @@ plt.savefig('CardenasSergio_TF_interpola.pdf')
 plt.close()
 
 #Diferencias
+print 'Una diferencia que se encontro es que la frecuencia de 385 Hz pierde aplitud en ambas interpolaciones. Tambien se observa que en las dfts de las interpolaciones, las frecuencias bajas son mas cercanas a cero (esto tiene sentido, pues las funciones cuadraticas y cubicas son suaves). Una ultima diferencia es que el ruido de "bajas frecuencias" (entre 400Hz y 2000 Hz) aumento su amplitud con respecto a la senal original.'
+
+#filtros
+fc2 = 500
+signalfiltered2 = transform*(abs(freqs)<=fc2)
+cuadraticfiltered = dftcuadratic*(abs(interpfreq)<=fc)
+cuadraticfiltered2 = dftcuadratic*(abs(interpfreq)<=fc2)
+cubicfiltered = dftcubic*(abs(interpfreq)<=fc)
+cubicfiltered2 = dftcubic*(abs(interpfreq)<=fc2)
+
+#Graficas
+plt.figure()
+plt.subplot('211')
+plt.plot(signalx, signal_filtered, label='original filtrada')
+plt.plot(interpx, ifft(cuadraticfiltered), label='cuadratica filtrada')
+plt.plot(interpx, ifft(cubicfiltered), label='cubica filtrada')
+plt.legend(loc=0, fontsize='small')
+plt.title('Filtro en 1000 Hz')
+plt.ylim(-6, 8)
+plt.subplot('212')
+plt.plot(signalx, ifft(signalfiltered2), label='original filtrada')
+plt.plot(interpx, ifft(cuadraticfiltered2), label='cuadratica filtrada')
+plt.plot(interpx, ifft(cubicfiltered2), label='cubica filtrada')
+plt.legend(loc=0, fontsize='small')
+plt.title('Filtro en 500 Hz')
+plt.ylim(-6, 8)
+plt.savefig('CardenasSergio_2Filtros.pdf')
+plt.close()
