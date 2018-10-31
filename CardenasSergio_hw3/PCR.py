@@ -32,3 +32,8 @@ eigvals, eigvecs = np.linalg.eig(covm)
 print 'a continuacion se listan todos los autovalores y autovectores'
 for i in range(len(eigvals)):
 	print 'El autovector\n', eigvecs[:,i], '\ntiene como autovalor', eigvals[i], '\n'
+
+#Parametros principales
+print 'Los parametros principales son los dos primeros, pues los dos primeros autovectores son los que tienen los autovalores mas grandes. De esta manera, las componentes principales son las siguientes:'
+print eigvecs[0]
+print eigvecs[1]
