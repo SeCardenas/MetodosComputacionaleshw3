@@ -9,7 +9,7 @@ def covMatrix(m):
 	n = len(m)
 	covm = np.zeros([n,n])
 	for i in range(n):
-		for j in range (n):
+		for j in range(n):
 			covm[i,j] = cov(m[i], m[j])
 	return covm
 
@@ -19,4 +19,11 @@ data = np.array([s.split(',') for s in data]).T[1:] #Se transpone para que cada 
 diagnoses = data[0]
 data = data[1:].astype(float)
 
+#Normalizar y centrar
+for i in range(len(data)):
+	data[i] = (data[i]-np.mean(data[i]))/np.std(data[i])
+
+#Matriz de covarianza de los datos normalizados
 covm = covMatrix(data)
+print 'Matriz de covarianza:'
+print covm
