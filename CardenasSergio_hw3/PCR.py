@@ -39,7 +39,7 @@ print 'Las componentes principales son las siguientes:'
 print eigvecs[0]
 print eigvecs[1]
 
-print 'De acuerdo con esto, uno de los parametros mas importates es el numero 17, que es el que tiene el mayor valor en la primera componente principal. Del segundo autovector, el parametro con mas importancia en esta componente es cuarto.'
+print 'De acuerdo con los autovectores y los autovalores, uno de los parametros mas importates es el numero 17, que es el que tiene el mayor valor en la primera componente principal. Del segundo autovector, el parametro con mas importancia en esta componente es cuarto.\n'
 
 #Proyecciones
 Proy1B = np.dot(eigvecs[0],data[:,diagnoses=='B'])
@@ -56,3 +56,6 @@ plt.xlabel('PC1')
 plt.ylabel('PC2')
 plt.savefig('CardenasSergio_PCA.pdf')
 plt.close()
+
+#Conclusion
+print 'De acuerdo con la grafica, se observa que hay una relacion entre el valor de la PC2 y el diagnostico: los que tienen diagnostico benigno, suelen ubicarse en valores positivos de la PC2, mientras que los que tienen diagnostico maligno, tienden a ubicarse en valores negativos de la PC2. Se ve que no siempre se cumple esto, por lo que no se puede dar un diagnostico solamente usando PCA, pero es una de estimar el diagnostico de un paciente.'
