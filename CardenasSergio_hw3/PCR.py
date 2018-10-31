@@ -27,3 +27,8 @@ for i in range(len(data)):
 covm = covMatrix(data)
 print 'Matriz de covarianza:'
 print covm
+
+eigvals, eigvecs = np.linalg.eig(covm)
+print 'a continuacion se listan todos los autovalores y autovectores'
+for i in range(len(eigvals)):
+	print 'El autovector\n', eigvecs[:,i], '\ntiene como autovalor', eigvals[i], '\n'
