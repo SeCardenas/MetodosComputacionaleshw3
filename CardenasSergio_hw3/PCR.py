@@ -34,6 +34,13 @@ for i in range(len(eigvals)):
 	print 'El autovector\n', eigvecs[:,i], '\ntiene como autovalor', eigvals[i], '\n'
 
 #Parametros principales
-print 'Los parametros principales son los dos primeros, pues los dos primeros autovectores son los que tienen los autovalores mas grandes. De esta manera, las componentes principales son las siguientes:'
+print 'Las componentes principales son las siguientes:'
 print eigvecs[0]
 print eigvecs[1]
+
+print 'De acuerdo con esto, uno de los parametros mas importates es el numero 17, que es el que tiene el mayor valor en la primera componente principal. Del segundo autovector, el parametro con mas importancia en esta componente es cuarto.'
+
+Proy1B = np.dot(eigvecs[0],data[:,diagnoses=='B'])
+Proy2B = np.dot(eigvecs[1],data[:,diagnoses=='B'])
+Proy1M = np.dot(eigvecs[0],data[:,diagnoses=='M'])
+Proy2M = np.dot(eigvecs[1],data[:,diagnoses=='M'])
