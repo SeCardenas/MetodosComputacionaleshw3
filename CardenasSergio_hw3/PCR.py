@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 #Covarianza de dos conjuntos de datos
 def cov(x1, x2):
@@ -40,7 +41,18 @@ print eigvecs[1]
 
 print 'De acuerdo con esto, uno de los parametros mas importates es el numero 17, que es el que tiene el mayor valor en la primera componente principal. Del segundo autovector, el parametro con mas importancia en esta componente es cuarto.'
 
+#Proyecciones
 Proy1B = np.dot(eigvecs[0],data[:,diagnoses=='B'])
 Proy2B = np.dot(eigvecs[1],data[:,diagnoses=='B'])
 Proy1M = np.dot(eigvecs[0],data[:,diagnoses=='M'])
 Proy2M = np.dot(eigvecs[1],data[:,diagnoses=='M'])
+
+#Grafica
+plt.figure()
+plt.scatter(Proy1B, Proy2B, c='b', alpha=0.6, label='Benignos')
+plt.scatter(Proy1M, Proy2M, c='r', alpha=0.6, label='Malignos')
+plt.legend()
+plt.xlabel('PC1')
+plt.ylabel('PC2')
+plt.savefig('CardenasSergio_PCA.pdf')
+plt.close()
