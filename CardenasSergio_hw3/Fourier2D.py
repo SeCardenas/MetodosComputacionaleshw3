@@ -44,3 +44,12 @@ plt.close()
 #Si se selecciona fraction = 0.09, hay una componente del ruido que no se esta considerando al filtrar.
 #Al escoger fraction = 0.089, se estan considerando todos los puntos en donde hay ruido y se observa que TODOS los puntos rojos ahora son blancos.
 #Se escoje fraction = 0.088 por si acaso :v
+
+#Reconstruccion de la imagen filtrada
+imgfiltrada = ifft2(imfft2).real
+plt.figure()
+plt.imshow(imgfiltrada, plt.cm.gray)
+plt.savefig("CardenasSergio_Imagen_filtrada.pdf",bbox_inches="tight")
+plt.close()
+
+#Se puede ver que el ruido en la imagen ha desaparecido, y no parece que la imagen original haya sido afectada por el filtro.
